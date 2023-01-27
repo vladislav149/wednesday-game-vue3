@@ -1,0 +1,12 @@
+@import 'fonts';
+@import 'reset';
+@import 'animation';
+
+body {
+	cursor: none;
+	overflow: hidden;
+}
+
+button[disabled] {
+	background-color: rgb(124, 4, 32) !important;
+}
