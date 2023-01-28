@@ -7,10 +7,21 @@ export default {
   name: 'WedCursor',
   mounted() {
     const cursorDefault = this.$refs.cursor
+    let mouseY
+    let mouseX
     const moveCursor = e => {
-      const mouseY = e.clientY
-      const mouseX = e.clientX
-      cursorDefault.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`
+      if (mouseX > e.clientX) {
+        mouseY = e.clientY
+        mouseX = e.clientX
+        cursorDefault.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) scale(-1, 1)`
+      } else if (mouseX < e.clientX) {
+        mouseY = e.clientY
+        mouseX = e.clientX
+        cursorDefault.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`
+      } else {
+        mouseY = e.clientY
+        mouseX = e.clientX
+      }
     }
     window.addEventListener('mousemove', moveCursor)
   }
