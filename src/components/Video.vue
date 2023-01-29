@@ -27,7 +27,11 @@ export default {
   },
   mounted() {
     const video = this.$refs.video
-    video.onsuspend = () => this.$store.dispatch('firstScreen/ready')
+    const videoLoad = () => {
+      this.$store.dispatch('firstScreen/ready')
+      video.removeEventListener('suspend', videoLoad)
+    }
+    video.addEventListener('suspend', videoLoad)
   },
   watch: {
     started() {

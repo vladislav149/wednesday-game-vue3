@@ -16,7 +16,6 @@ const mutations = {
 
 const actions = {
   ready({commit}) {
-    console.log(1)
     return new Promise(resolve => {
       commit('ready')
       resolve()
