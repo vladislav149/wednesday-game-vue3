@@ -7,16 +7,14 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 export default {
   name: 'WedBtnEnd',
   computed: {
-    ...mapGetters('first', ['started'])
+    ...mapGetters('firstScreen', ['started'])
   },
   methods: {
-    endGame() {
-      this.$store.dispatch('first/end')
-    }
+    ...mapActions('firstScreen', {endGame: 'end'})
   }
 }
 </script>

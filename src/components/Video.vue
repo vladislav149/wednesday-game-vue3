@@ -23,7 +23,11 @@ import {mapGetters} from 'vuex'
 export default {
   name: 'WedVideo',
   computed: {
-    ...mapGetters('first', ['started'])
+    ...mapGetters('firstScreen', ['started'])
+  },
+  mounted() {
+    const video = this.$refs.video
+    video.onsuspend = () => this.$store.dispatch('firstScreen/ready')
   },
   watch: {
     started() {

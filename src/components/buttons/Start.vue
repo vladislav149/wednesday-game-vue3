@@ -2,39 +2,29 @@
   <transition appear name="start">
     <button
       v-if="!started"
-      :disabled="cantStart"
+      :disabled="!isReady"
       class="start"
       @click="startGame"
     >
-      <beat-loader v-if="cantStart" :color="'black'" :loading="true" />
+      <beat-loader v-if="!isReady" :color="'black'" :loading="true" />
       <span v-else>Старт!</span>
     </button>
   </transition>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 import BeatLoader from 'vue-spinner/src/BeatLoader.vue'
 export default {
   name: 'WedBtnStart',
   components: {
     BeatLoader
   },
-  data() {
-    return {
-      cantStart: true
-    }
-  },
-  mounted() {
-    setTimeout(() => (this.cantStart = false), 1000)
-  },
   computed: {
-    ...mapGetters('first', ['started'])
+    ...mapGetters('firstScreen', ['started', 'isReady'])
   },
   methods: {
-    startGame() {
-      this.$store.dispatch('first/start')
-    }
+    ...mapActions('firstScreen', {startGame: 'start'})
   }
 }
 </script>
@@ -45,7 +35,7 @@ export default {
   bottom: 20%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: rgb(3, 162, 0);
+  background-color: #03a200;
   padding: 10px 15px;
   border-radius: 20px;
 }

@@ -1,10 +1,10 @@
 import {createStore} from 'vuex'
-import first from '@/store/first'
+import firstScreen from '@/store/firstScreen'
 
 export default createStore({
   state: {},
   getters: {},
   mutations: {},
   actions: {},
-  modules: {first}
+  modules: {firstScreen}
 })
