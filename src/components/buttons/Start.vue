@@ -7,7 +7,7 @@
       @click="startGame"
     >
       <beat-loader v-if="!isReady" :color="'black'" :loading="true" />
-      <span v-else>Старт!</span>
+      <span v-else>{{ $t('start') }}!</span>
     </button>
   </transition>
 </template>

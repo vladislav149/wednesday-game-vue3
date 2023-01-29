@@ -27,6 +27,7 @@ export default {
         cursorDefault.style.transform = ''
         cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`
       } else {
+        cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`
         updateMousePos()
       }
     }
