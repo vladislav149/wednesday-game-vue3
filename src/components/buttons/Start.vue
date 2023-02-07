@@ -38,6 +38,10 @@ export default {
   background-color: #03a200;
   padding: 10px 15px;
   border-radius: 20px;
+  transition: transform 0.3s;
+  &:hover {
+    transform: translateX(-50%) scale(1.2);
+  }
 }
 
 .start-leave-active {

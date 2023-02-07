@@ -1,7 +1,7 @@
 <template>
   <div class="quiz" v-if="quiz">
+    <!-- @suspend="$refs.audio.play()" -->
     <audio
-      @suspend="$refs.audio.play()"
       ref="audio"
       :src="require('@/assets/audio/wednesday-main-titles.mp3')"
       loop
@@ -93,7 +93,7 @@ export default {
         },
         {
           id: 2,
-          text: 'А как зовут директрису Академии?',
+          text: 'Как зовут директрису Академии?',
           answers: [
             {id: 1, text: 'Лариса Уимс', isCorrectAnswer: true},
             {id: 2, text: 'Энид Синклер', isCorrectAnswer: false},
@@ -142,20 +142,20 @@ export default {
           answers: [
             {
               id: 1,
-              text: 'Он способен воплощать свои рисунки в жизнь',
+              text: 'Воплощает свои рисунки в жизнь',
               isCorrectAnswer: true
             },
-            {id: 2, text: 'Он способен менять облик', isCorrectAnswer: false},
+            {id: 2, text: 'Меняет облик', isCorrectAnswer: false},
             {
               id: 3,
-              text: 'Он способен управлять пчелами',
+              text: 'Управляет пчелами',
               isCorrectAnswer: false
             }
           ]
         },
         {
           id: 8,
-          text: 'А что за общежитие, в котором живет Уэнсдэй?',
+          text: 'Как называется общежитие, в котором живет Уэнсдэй?',
           answers: [
             {id: 1, text: '«Амелия»', isCorrectAnswer: false},
             {id: 2, text: '«Офелия»', isCorrectAnswer: true},
@@ -168,15 +168,15 @@ export default {
           answers: [
             {
               id: 1,
-              text: 'Она бросила живых пираний в бассейн во время тренировки по водному поло',
+              text: 'Бросила живых пираний в бассейн во время тренировки по водному поло',
               isCorrectAnswer: true
             },
             {
               id: 2,
-              text: 'Она запустила разъяренных пчел в кабинет директора',
+              text: 'Запустила разъяренных пчел в кабинет директора',
               isCorrectAnswer: false
             },
-            {id: 3, text: 'Она подожгла школу', isCorrectAnswer: false}
+            {id: 3, text: 'Подожгла школу', isCorrectAnswer: false}
           ]
         },
         {
@@ -207,7 +207,7 @@ export default {
         opacity: 1,
         x: 0,
         pointerEvents: 'all',
-        delay: el.dataset.index * 2.5,
+        delay: el.dataset.index * 1.5,
         onComplete: done
       })
     },
@@ -256,6 +256,8 @@ export default {
 .quiz__answer {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  margin-right: 20px;
   font-size: 30px;
   color: burlywood;
 }

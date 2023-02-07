@@ -8,11 +8,24 @@
 export default {
   name: 'WedCursor',
   mounted() {
+    let to = 2000
+    let ts = 0
+    let checkStopCursor
     const cursorDefault = this.$refs.cursorDefault
     const cursor = this.$refs.cursor
     let mouseY = 0
     let mouseX = 0
     const moveCursor = e => {
+      ts = Date.now()
+      clearTimeout(checkStopCursor)
+      cursor.style.opacity = 1
+      checkStopCursor = setInterval(() => {
+        if (Date.now() - ts > to) {
+          cursor.style.opacity > 0
+            ? (cursor.style.opacity = cursor.style.opacity - 0.1)
+            : false
+        }
+      }, 99)
       const updateMousePos = () => {
         mouseY = e.clientY
         mouseX = e.clientX
@@ -32,6 +45,9 @@ export default {
       }
     }
     window.addEventListener('mousemove', moveCursor)
+  },
+  unmounted() {
+    window.removeEventListener('mousemove', 'moveCursor')
   }
 }
 </script>
