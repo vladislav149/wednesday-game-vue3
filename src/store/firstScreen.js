@@ -5,7 +5,8 @@ const state = {
 
 const getters = {
   started: state => state.started,
-  isReady: state => state.isReady
+  isReady: state => state.isReady,
+  videoRun: state => state.videoRun
 }
 
 const mutations = {
@@ -15,19 +16,19 @@ const mutations = {
 }
 
 const actions = {
-  ready({commit}) {
+  ready: ({commit}) => {
     return new Promise(resolve => {
       commit('ready')
       resolve()
     })
   },
-  start({commit}) {
+  start: ({commit}) => {
     return new Promise(resolve => {
       commit('start')
       resolve()
     })
   },
-  end({commit}) {
+  end: ({commit}) => {
     return new Promise(resolve => {
       commit('end')
       resolve()

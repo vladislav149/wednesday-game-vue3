@@ -5,8 +5,29 @@
 body {
 	cursor: none;
 	overflow: hidden;
+	background-color: #1f1d3e;
 }
 
 button[disabled] {
 	background-color: #7c0420 !important;
+}
+
+.d-flex {
+	display: flex;
+}
+
+.f-d-column {
+	flex-direction: column;
+}
+
+.w-100 {
+	width: 100%;
+}
+
+.t-a-left {
+	text-align: left;
+}
+
+.jc-sb {
+	justify-content: space-between;
 }

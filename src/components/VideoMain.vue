@@ -1,61 +1,38 @@
 <template>
-  <video ref="video" class="video" preload="auto" loop="loop">
-    <source
-      src="@/assets/video/Wednesday.mp4"
-      type='video/ogg; codecs="theora,
-    vorbis"'
-    />
-    <source
-      src="@/assets/video/Wednesday.mp4"
-      type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
-    />
-    <source
-      src="@/assets/video/Wednesday.mp4"
-      type='video/webm;
-    codecs="vp8, vorbis"'
-    />
-    Тег video не поддерживается вашим браузером.
-  </video>
+  <WedVideo
+    @suspend.once="ready"
+    ref="video"
+    :src="'Wednesday.mp4'"
+    :loop="true"
+  />
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 export default {
   name: 'WedVideoMain',
   computed: {
-    ...mapGetters('firstScreen', ['started'])
+    ...mapGetters('firstScreen', ['started']),
+    ...mapGetters('listGame', ['isGamePlayed'])
   },
-  mounted() {
-    const video = this.$refs.video
-    const videoLoad = () => {
-      this.$store.dispatch('firstScreen/ready')
-      video.removeEventListener('suspend', videoLoad)
-    }
-    video.addEventListener('suspend', videoLoad)
+  methods: {
+    ...mapActions('firstScreen', ['ready'])
   },
   watch: {
     started() {
       if (this.started) {
-        this.$refs.video.play()
-        document.documentElement.requestFullscreen()
+        this.$refs.video.playAndFullscreen()
       } else {
-        this.$refs.video.pause()
-        this.$refs.video.currentTime = 0
-        document.exitFullscreen()
+        this.$refs.video.stopAndExit()
+      }
+    },
+    isGamePlayed() {
+      if (!this.isGamePlayed) {
+        this.$refs.video.play()
+      } else {
+        this.$refs.video.stop()
       }
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-video::-webkit-media-controls {
-  display: none !important;
-}
-
-.video {
-  display: block;
-  max-height: 100vh;
-  width: 100%;
-}
-</style>

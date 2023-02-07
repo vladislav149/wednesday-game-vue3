@@ -1,21 +1,72 @@
 <template>
-  <transition appear name="cards">
-    <ul v-if="started" class="cards">
-      <li class="cards__card cards__card--top-left"></li>
-      <li class="cards__card cards__card--top-right"></li>
-      <li class="cards__card cards__card--center"></li>
-      <li class="cards__card cards__card--bottom-left"></li>
-      <li class="cards__card cards__card--bottom-right"></li>
-    </ul>
-  </transition>
+  <div>
+    <WedDance />
+    <WedQuiz />
+    <transition appear name="cards">
+      <ul v-if="started && !isGamePlayed" class="cards">
+        <!-- @click="startGame(game.id)" -->
+        <li
+          v-for="game in listGames"
+          :key="game.id"
+          :class="[game.class, {played: game.isPlayed}]"
+          @click="game.game(), (game.isPlayed = true)"
+          class="cards__card"
+        ></li>
+      </ul>
+    </transition>
+  </div>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import WedDance from '@/components/games/VideoDance'
+import WedQuiz from '@/components/games/Quiz'
+import {mapGetters, mapActions} from 'vuex'
 export default {
   name: 'WedCard',
+  data() {
+    return {
+      listGames: [
+        {
+          id: 1,
+          class: 'cards__card--top-left',
+          isPlayed: false,
+          game: () => console.log(1)
+        },
+        {
+          id: 2,
+          class: 'cards__card--top-right',
+          isPlayed: false,
+          game: () => console.log(1)
+        },
+        {
+          id: 3,
+          class: 'cards__card--center',
+          isPlayed: false,
+          game: () => this.showVideo(true)
+        },
+        {
+          id: 4,
+          class: 'cards__card--bottom-left',
+          isPlayed: false,
+          game: () => this.showQuiz(true)
+        },
+        {
+          id: 5,
+          class: 'cards__card--bottom-right',
+          isPlayed: false,
+          game: () => console.log(1)
+        }
+      ]
+    }
+  },
+  components: {WedDance, WedQuiz},
   computed: {
-    ...mapGetters('firstScreen', ['started'])
+    ...mapGetters('firstScreen', ['started']),
+    ...mapGetters('listGame', ['isGamePlayed'])
+  },
+  methods: {
+    ...mapActions('listGame', ['showVideo']),
+    ...mapActions('listGame', ['showQuiz'])
   }
 }
 </script>
@@ -119,6 +170,26 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.played {
+  &::before {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    opacity: 1;
+    background-image: url('@/assets/icons/exit.svg');
+    background-size: contain;
+  }
+  &:hover::before {
+    animation: none;
+  }
 }
 
 @keyframes rotate {
