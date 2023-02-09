@@ -5,8 +5,7 @@ const state = {
 
 const getters = {
   started: state => state.started,
-  isReady: state => state.isReady,
-  videoRun: state => state.videoRun
+  isReady: state => state.isReady
 }
 
 const mutations = {

@@ -2,9 +2,9 @@
   <div>
     <WedDance />
     <WedQuiz />
+    <WedGuessCharacters />
     <transition appear name="cards">
       <ul v-if="started && !isGamePlayed" class="cards">
-        <!-- @click="startGame(game.id)" -->
         <li
           v-for="game in listGames"
           :key="game.id"
@@ -20,6 +20,7 @@
 <script>
 import WedDance from '@/components/games/VideoDance'
 import WedQuiz from '@/components/games/Quiz'
+import WedGuessCharacters from '@/components/games/GuessCharacters'
 import {mapGetters, mapActions} from 'vuex'
 export default {
   name: 'WedCard',
@@ -36,7 +37,7 @@ export default {
           id: 2,
           class: 'cards__card--top-right',
           isPlayed: false,
-          game: () => console.log(1)
+          game: () => console.log(2)
         },
         {
           id: 3,
@@ -54,19 +55,18 @@ export default {
           id: 5,
           class: 'cards__card--bottom-right',
           isPlayed: false,
-          game: () => console.log(1)
+          game: () => this.showGuessCharacters(true)
         }
       ]
     }
   },
-  components: {WedDance, WedQuiz},
+  components: {WedDance, WedQuiz, WedGuessCharacters},
   computed: {
     ...mapGetters('firstScreen', ['started']),
     ...mapGetters('listGame', ['isGamePlayed'])
   },
   methods: {
-    ...mapActions('listGame', ['showVideo']),
-    ...mapActions('listGame', ['showQuiz'])
+    ...mapActions('listGame', ['showVideo', 'showQuiz', 'showGuessCharacters'])
   }
 }
 </script>

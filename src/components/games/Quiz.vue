@@ -1,7 +1,7 @@
 <template>
   <div class="quiz" v-if="quiz">
-    <!-- @suspend="$refs.audio.play()" -->
     <audio
+      @suspend.once="$refs.audio.play()"
       ref="audio"
       :src="require('@/assets/audio/wednesday-main-titles.mp3')"
       loop
