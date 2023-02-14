@@ -6,6 +6,7 @@
       :src="require('@/assets/audio/wednesday-main-titles.mp3')"
       loop
     ></audio>
+
     <div
       v-if="activeQuestion > questions.length"
       @click="showQuiz(false)"
@@ -15,6 +16,7 @@
         Ваш результат - {{ countCorrectNumber }}/{{ questions.length }}
       </div>
     </div>
+
     <div
       class="quiz__container"
       v-for="question in questions"
@@ -39,6 +41,7 @@
                   }"
                   :data-index="answer.id + 1"
                   @click="answered(answer.isCorrectAnswer)"
+                  :disabled="showCorrectAnswer"
                   class="d-flex quiz__btn w-100"
                 >
                   <div class="quiz__number-answer">{{ answer.id }}</div>
@@ -46,6 +49,7 @@
                 </button>
               </transition-group>
             </div>
+
             <button
               v-if="showCorrectAnswer"
               @click="activeQuestion++, (showCorrectAnswer = false)"
@@ -54,6 +58,7 @@
               Далее
             </button>
           </div>
+
           <transition name="img" appear>
             <img
               class="quiz__image"
@@ -281,6 +286,8 @@ export default {
 .quiz__btn--right,
 .quiz__btn--wrong {
   position: relative;
+  pointer-events: none !important;
+
   &::before {
     content: '';
     position: absolute;
@@ -295,6 +302,13 @@ export default {
   }
 }
 .quiz__btn--right {
+  &:disabled {
+    background-color: #4caf50;
+    &:hover {
+      background-color: #4caf50;
+      color: inherit;
+    }
+  }
   &::before {
     background-image: url('@/assets/icons/answer/correct.svg');
   }

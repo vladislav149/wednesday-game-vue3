@@ -154,6 +154,8 @@ export default {
   right: 0;
   bottom: 0;
   background-color: #1f1d3e;
+  background-image: url('@/assets/icons/answer/question_mark.svg');
+  background-size: 60px;
 }
 
 .img-no-guessed {
