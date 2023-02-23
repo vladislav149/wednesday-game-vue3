@@ -3,6 +3,7 @@
     <WedDance />
     <WedQuiz />
     <WedGuessCharacters />
+    <WedVoice />
     <transition appear name="cards">
       <ul v-if="started && !isGamePlayed" class="cards">
         <li
@@ -21,27 +22,29 @@
 import WedDance from '@/components/games/VideoDance'
 import WedQuiz from '@/components/games/Quiz'
 import WedGuessCharacters from '@/components/games/GuessCharacters'
+import WedVoice from '@/components/games/Voice'
 import {mapGetters, mapActions} from 'vuex'
 export default {
   name: 'WedCard',
   data() {
     return {
       listGames: [
-        {
-          id: 1,
-          class: 'cards__card--top-left',
-          isPlayed: false,
-          game: () => console.log(1)
-        },
+        // {
+        //   id: 1,
+        //   class: 'cards__card--top-left',
+        //   isPlayed: false,
+        //   game: () => console.log(1)
+        // },
         {
           id: 2,
           class: 'cards__card--top-right',
           isPlayed: false,
-          game: () => console.log(2)
+          game: () => this.showVoice(true)
         },
         {
           id: 3,
-          class: 'cards__card--center',
+          // class: 'cards__card--center',
+          class: 'cards__card--top-left',
           isPlayed: false,
           game: () => this.showVideo(true)
         },
@@ -60,13 +63,18 @@ export default {
       ]
     }
   },
-  components: {WedDance, WedQuiz, WedGuessCharacters},
+  components: {WedDance, WedQuiz, WedGuessCharacters, WedVoice},
   computed: {
     ...mapGetters('firstScreen', ['started']),
     ...mapGetters('listGame', ['isGamePlayed'])
   },
   methods: {
-    ...mapActions('listGame', ['showVideo', 'showQuiz', 'showGuessCharacters'])
+    ...mapActions('listGame', [
+      'showVideo',
+      'showQuiz',
+      'showGuessCharacters',
+      'showVoice'
+    ])
   }
 }
 </script>
@@ -122,9 +130,9 @@ export default {
   animation: rotate 2s linear infinite;
 }
 
-.cards__card--top-left::after {
-  background-image: url('@/assets/photo/persons/tyler.jpg');
-}
+// .cards__card--top-left::after {
+//   background-image: url('@/assets/photo/persons/tyler.jpg');
+// }
 
 .cards__card--top-right::after {
   background-image: url('@/assets/photo/persons/inid.jpg');
@@ -138,7 +146,8 @@ export default {
   background-image: url('@/assets/photo/persons/xavier.jpg');
 }
 
-.cards__card--center::after {
+// .cards__card--center::after {
+.cards__card--top-left::after {
   background-image: url('@/assets/photo/persons/wednesday.jpg');
 }
 

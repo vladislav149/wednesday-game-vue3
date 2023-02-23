@@ -7,25 +7,31 @@
 <script>
 export default {
   name: 'WedCursor',
+  data() {
+    return {
+      moveCursor: null,
+      delayCursor: 2000,
+      intervalTime: 99,
+      updateOpacityStep: 0.1
+    }
+  },
   mounted() {
-    let to = 2000
-    let ts = 0
     let checkStopCursor
-    const cursorDefault = this.$refs.cursorDefault
-    const cursor = this.$refs.cursor
+    const {cursorDefault, cursor} = this.$refs
     let mouseY = 0
     let mouseX = 0
-    const moveCursor = e => {
-      ts = Date.now()
+    this.moveCursor = e => {
+      const ts = Date.now()
       clearTimeout(checkStopCursor)
       cursor.style.opacity = 1
       checkStopCursor = setInterval(() => {
-        if (Date.now() - ts > to) {
+        if (Date.now() - ts > this.delayCursor) {
           cursor.style.opacity > 0
-            ? (cursor.style.opacity = cursor.style.opacity - 0.1)
+            ? (cursor.style.opacity =
+                cursor.style.opacity - this.updateOpacityStep)
             : false
         }
-      }, 99)
+      }, this.intervalTime)
       const updateMousePos = () => {
         mouseY = e.clientY
         mouseX = e.clientX
@@ -33,7 +39,7 @@ export default {
 
       if (mouseX > e.clientX) {
         updateMousePos()
-        cursorDefault.style.transform = `scale(-1, 1)`
+        cursorDefault.style.transform = 'scale(-1, 1)'
         cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`
       } else if (mouseX < e.clientX) {
         updateMousePos()
@@ -44,10 +50,10 @@ export default {
         updateMousePos()
       }
     }
-    window.addEventListener('mousemove', moveCursor)
+    window.addEventListener('mousemove', this.moveCursor)
   },
   unmounted() {
-    window.removeEventListener('mousemove', 'moveCursor')
+    window.removeEventListener('mousemove', this.moveCursor)
   }
 }
 </script>
